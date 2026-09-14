@@ -1,0 +1,1789 @@
+<!doctype html>
+<html lang="en" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+      Shahriar Ibne Alam Mahee | CSE Student & Software Developer Portfolio
+    </title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- React & ReactDOM -->
+    <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+
+    <!-- Babel standalone for JSX processing -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              darkBg: "#040308",
+              cardBg: "#0C0816",
+              purplePrimary: "#7C3AED",
+              purpleBright: "#A855F7",
+              purpleSoft: "#C084FC",
+              cyanGlow: "#06B6D4",
+            },
+            fontFamily: {
+              sans: ["Inter", "sans-serif"],
+              mono: ["Fira Code", "monospace"],
+            },
+            animation: {
+              "pulse-slow": "pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite",
+              float: "float 5s ease-in-out infinite",
+              shimmer: "shimmer 2.5s linear infinite",
+              "glow-pulse": "glowPulse 3s ease-in-out infinite alternate",
+            },
+            keyframes: {
+              float: {
+                "0%, 100%": { transform: "translateY(0px) rotate(0deg)" },
+                "50%": { transform: "translateY(-12px) rotate(0.5deg)" },
+              },
+              shimmer: {
+                "0%": { backgroundPosition: "-200% 0" },
+                "100%": { backgroundPosition: "200% 0" },
+              },
+              glowPulse: {
+                "0%": { boxShadow: "0 0 15px rgba(124, 58, 237, 0.2)" },
+                "100%": { boxShadow: "0 0 35px rgba(168, 85, 247, 0.5)" },
+              },
+            },
+          },
+        },
+      };
+    </script>
+
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=Inter:wght@300;400;500;600;700;800;900&display=swap");
+
+      html,
+      body {
+        background-color: #040308;
+        color: #ffffff;
+        font-family: "Inter", sans-serif;
+        overflow-x: hidden;
+      }
+
+      /* 3D Glassmorphism Cards */
+      .glass-card {
+        background: rgba(12, 8, 22, 0.68);
+        backdrop-filter: blur(18px);
+        -webkit-backdrop-filter: blur(18px);
+        border: 1px solid rgba(124, 58, 237, 0.22);
+        transition:
+          border-color 0.4s ease,
+          box-shadow 0.4s ease,
+          transform 0.2s cubic-bezier(0.2, 0.8, 0.2, 1);
+        transform-style: preserve-3d;
+      }
+
+      .glass-card:hover {
+        border-color: rgba(168, 85, 247, 0.6);
+        box-shadow:
+          0 20px 40px -10px rgba(124, 58, 237, 0.35),
+          0 0 25px rgba(168, 85, 247, 0.2);
+      }
+
+      .text-gradient {
+        background: linear-gradient(
+          135deg,
+          #ffffff 0%,
+          #e9d5ff 40%,
+          #a855f7 80%,
+          #7c3aed 100%
+        );
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+
+      .purple-gradient-btn {
+        background: linear-gradient(135deg, #7c3aed 0%, #a855f7 100%);
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .purple-gradient-btn::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          rgba(255, 255, 255, 0.25),
+          transparent
+        );
+        transition: left 0.6s ease;
+      }
+
+      .purple-gradient-btn:hover::before {
+        left: 100%;
+      }
+
+      .purple-gradient-btn:hover {
+        box-shadow: 0 0 30px rgba(168, 85, 247, 0.7);
+        transform: translateY(-2px) scale(1.02);
+      }
+
+      .purple-gradient-btn:active {
+        transform: translateY(0) scale(0.98);
+      }
+
+      /* Ambient Cyber Grid Overlay */
+      .bg-cyber-grid {
+        background-size: 50px 50px;
+        background-image:
+          linear-gradient(
+            to right,
+            rgba(124, 58, 237, 0.08) 1px,
+            transparent 1px
+          ),
+          linear-gradient(
+            to bottom,
+            rgba(124, 58, 237, 0.08) 1px,
+            transparent 1px
+          );
+      }
+
+      /* Animated Aurora Waves */
+      @keyframes floatAurora {
+        0%,
+        100% {
+          transform: translate(0px, 0px) scale(1);
+        }
+        50% {
+          transform: translate(30px, -25px) scale(1.1);
+        }
+      }
+
+      .animate-aurora {
+        animation: floatAurora 12s ease-in-out infinite alternate;
+      }
+
+      /* Scroll Reveal Utility Classes */
+      .reveal-element {
+        opacity: 0;
+        transform: translateY(30px);
+        transition:
+          opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+          transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+      }
+
+      .reveal-element.is-visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      /* Custom scrollbar */
+      ::-webkit-scrollbar {
+        width: 8px;
+      }
+      ::-webkit-scrollbar-track {
+        background: #040308;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: #1e1738;
+        border-radius: 4px;
+      }
+      ::-webkit-scrollbar-thumb:hover {
+        background: #7c3aed;
+      }
+    </style>
+  </head>
+  <body class="selection:bg-[#7C3AED] selection:text-white">
+    <div id="root"></div>
+
+    <script type="text/babel">
+      const PORTFOLIO_DATA = {
+        fullName: "Shahriar Ibne Alam Mahee",
+        displayName: "Shahriar Ibne Alam Mahee",
+        nickname: "Mahee",
+        roleHeadline:
+          "CSE Student • Competitive Programmer • C++ & Java Developer",
+        university: "International Islamic University Chittagong (IIUC)",
+        department: "Department of Computer Science & Engineering (CSE)",
+        degree: "Bachelor of Science in Computer Science & Engineering",
+        status: "Active CSE Undergraduate Student",
+        email: "maheecse2030@gmail.com",
+        phone: "01774227306",
+        location: "Chattogram, Bangladesh",
+        introShort:
+          "I am Shahriar Ibne Alam Mahee — a Computer Science & Engineering student passionate about algorithmic problem solving, modern software architectures, high-performance C++/Java code, and web engineering.",
+        introAbout:
+          "I am Shahriar Ibne Alam Mahee, currently pursuing my B.Sc. in Computer Science & Engineering at International Islamic University Chittagong. My focus revolves around writing efficient algorithms, deeply understanding computer science core concepts, and engineering practical real-world applications.",
+
+        heroRotatingText: [
+          "Competitive Programmer",
+          "C++ & STL Developer",
+          "Java & OOP Enthusiast",
+          "Data Structures Learner",
+          "Web Application Developer",
+          "Problem Solver @ Codeforces",
+        ],
+
+        socials: {
+          github: {
+            platform: "GitHub Platform",
+            label: "GitHub Source Code Repository (@maheecse)",
+            username: "maheecse",
+            url: "https://github.com/maheecse",
+          },
+          linkedin: {
+            platform: "LinkedIn Network",
+            label: "LinkedIn Professional Profile & Network",
+            username: "shahriar-ibne-alam-mahee",
+            url: "https://www.linkedin.com/in/shahriar-ibne-alam-mahee-1754963a6/",
+          },
+          codeforces: {
+            platform: "Codeforces Contests",
+            label: "Codeforces Competitive Programming Handle (@maheecse)",
+            username: "maheecse",
+            url: "https://codeforces.com/profile/maheecse",
+          },
+        },
+
+        skills: [
+          {
+            category: "Languages & Core",
+            name: "C++ (CPP)",
+            level: 85,
+            desc: "STL containers, pointers, memory logic, OOP, & CP algorithms.",
+            icon: "terminal",
+          },
+          {
+            category: "Languages & Core",
+            name: "Java",
+            level: 72,
+            desc: "Core Object-Oriented Programming, classes, inheritance, abstraction.",
+            icon: "coffee",
+          },
+          {
+            category: "Languages & Core",
+            name: "C Language",
+            level: 88,
+            desc: "Foundations, memory operations, structural logic, and pointers.",
+            icon: "code",
+          },
+          {
+            category: "Languages & Core",
+            name: "Python",
+            level: 65,
+            desc: "Logic scripting, rapid automation, & algorithmic basics.",
+            icon: "file-code",
+          },
+          {
+            category: "CS Fundamentals",
+            name: "Data Structures",
+            level: 80,
+            desc: "Arrays, Linked Lists, Stacks, Queues, Trees, BST, Graphs.",
+            icon: "database",
+          },
+          {
+            category: "CS Fundamentals",
+            name: "Algorithms",
+            level: 78,
+            desc: "Searching, Sorting, Binary Search, Dynamic Logic, Complexity.",
+            icon: "cpu",
+          },
+          {
+            category: "CS Fundamentals",
+            name: "Competitive Prog.",
+            level: 75,
+            desc: "Solving speed/memory constraint problems on Codeforces.",
+            icon: "zap",
+          },
+          {
+            category: "Web & Tools",
+            name: "HTML5 / CSS3 / JS",
+            level: 80,
+            desc: "Modern responsive web interfaces, DOM logic, ES6+, Tailwind.",
+            icon: "layout",
+          },
+          {
+            category: "Web & Tools",
+            name: "Git & GitHub",
+            level: 82,
+            desc: "Version control, branching, repository management.",
+            icon: "git-branch",
+          },
+        ],
+
+        projects: [
+          {
+            id: "01",
+            title: "Attendance & Academic Management System",
+            description:
+              "A robust C++ based software system for managing student course enrollments, attendance logs, and GPA tracking with persistent file handling.",
+            technologies: ["C++", "OOP", "File Systems", "Data Structures"],
+            githubUrl: "https://github.com/maheecse",
+            status: "Completed Core",
+          },
+          {
+            id: "02",
+            title: "Student Productivity & Schedule Tracker",
+            description:
+              "An interactive web utility designed to monitor study hours, university course timetables, and competitive programming goal metrics.",
+            technologies: [
+              "JavaScript",
+              "HTML5",
+              "Tailwind CSS",
+              "Web Storage",
+            ],
+            githubUrl: "https://github.com/maheecse",
+            status: "Active Practice",
+          },
+          {
+            id: "03",
+            title: "Algorithmic Codeforces Stats Visualizer",
+            description:
+              "An upcoming analytical dashboard project tracking problem rating trends, topic heatmaps, and solved problem categories.",
+            technologies: ["C++", "JavaScript", "REST APIs", "Canvas UI"],
+            githubUrl: "https://github.com/maheecse",
+            status: "In Development",
+          },
+        ],
+
+        journeySteps: [
+          {
+            step: "01",
+            title: "First Step into Logic",
+            detail:
+              "Started coding and solved foundational logic puzzles in structured C.",
+          },
+          {
+            step: "02",
+            title: "Enrolled in IIUC CSE",
+            detail:
+              "Joined International Islamic University Chittagong to pursue Computer Science.",
+          },
+          {
+            step: "03",
+            title: "Mastered C++ & STL",
+            detail:
+              "Adopted Object-Oriented Programming and Standard Template Library for problem solving.",
+          },
+          {
+            step: "04",
+            title: "Competitive Programming",
+            detail:
+              "Active problem-solving journey on Codeforces as @maheecse.",
+          },
+          {
+            step: "05",
+            title: "Learning Java & Software Dev",
+            detail:
+              "Expanding OOP proficiency, software patterns, and modern Web Engineering.",
+          },
+        ],
+
+        photography: [
+          {
+            title: "IIUC Campus Lights",
+            tag: "Architecture",
+            desc: "Atmospheric perspective shot at IIUC university grounds.",
+          },
+          {
+            title: "Chittagong Sunset",
+            tag: "Nature",
+            desc: "Exploring color tones and dynamic range in natural lighting.",
+          },
+          {
+            title: "Urban Symmetry",
+            tag: "Street",
+            desc: "Symmetrical lines and geometric balance in urban architecture.",
+          },
+          {
+            title: "Macro Depth",
+            tag: "Focus",
+            desc: "Capturing close-up detail, aperture control, and focal contrast.",
+          },
+        ],
+      };
+
+      const playSoundEffect = (type = "click") => {
+        try {
+          const AudioCtx = window.AudioContext || window.webkitAudioContext;
+          if (!AudioCtx) return;
+          const ctx = new AudioCtx();
+          const osc = ctx.createOscillator();
+          const gain = ctx.createGain();
+
+          osc.connect(gain);
+          gain.connect(ctx.destination);
+
+          if (type === "click") {
+            osc.type = "sine";
+            osc.frequency.setValueAtTime(600, ctx.currentTime);
+            osc.frequency.exponentialRampToValueAtTime(
+              300,
+              ctx.currentTime + 0.04,
+            );
+            gain.gain.setValueAtTime(0.08, ctx.currentTime);
+            gain.gain.exponentialRampToValueAtTime(
+              0.001,
+              ctx.currentTime + 0.04,
+            );
+            osc.start();
+            osc.stop(ctx.currentTime + 0.04);
+          } else if (type === "hover") {
+            osc.type = "triangle";
+            osc.frequency.setValueAtTime(280, ctx.currentTime);
+            osc.frequency.exponentialRampToValueAtTime(
+              420,
+              ctx.currentTime + 0.03,
+            );
+            gain.gain.setValueAtTime(0.02, ctx.currentTime);
+            gain.gain.exponentialRampToValueAtTime(
+              0.001,
+              ctx.currentTime + 0.03,
+            );
+            osc.start();
+            osc.stop(ctx.currentTime + 0.03);
+          }
+        } catch (e) {}
+      };
+
+      function DynamicBackgroundCanvas() {
+        const canvasRef = React.useRef(null);
+        const [mousePos, setMousePos] = React.useState({ x: -500, y: -500 });
+
+        React.useEffect(() => {
+          const canvas = canvasRef.current;
+          if (!canvas) return;
+          const ctx = canvas.getContext("2d");
+          let animationFrameId;
+
+          let width = (canvas.width = window.innerWidth);
+          let height = (canvas.height = window.innerHeight);
+
+          const handleResize = () => {
+            width = canvas.width = window.innerWidth;
+            height = canvas.height = window.innerHeight;
+          };
+          window.addEventListener("resize", handleResize);
+
+          const mouse = { x: width / 2, y: height / 2, radius: 220 };
+          const handleMouseMove = (e) => {
+            mouse.x = e.clientX;
+            mouse.y = e.clientY;
+            setMousePos({ x: e.clientX, y: e.clientY });
+          };
+          window.addEventListener("mousemove", handleMouseMove);
+
+          const codeSymbols = [
+            "C++",
+            "STL",
+            "DP",
+            "O(N log N)",
+            "BFS",
+            "DFS",
+            "Tree",
+            "Graph",
+            "IIUC",
+            "0101",
+            "Vector",
+            "Codeforces",
+          ];
+          const particleCount = Math.min(Math.floor(width / 14), 95);
+          const particles = [];
+
+          for (let i = 0; i < particleCount; i++) {
+            particles.push({
+              x: Math.random() * width,
+              y: Math.random() * height,
+              vx: (Math.random() - 0.5) * 0.7,
+              vy: (Math.random() - 0.5) * 0.7,
+              radius: Math.random() * 2.2 + 1,
+              alpha: Math.random() * 0.7 + 0.2,
+              isSymbol: Math.random() < 0.22,
+              symbol:
+                codeSymbols[Math.floor(Math.random() * codeSymbols.length)],
+              fontSize: Math.floor(Math.random() * 3) + 10,
+            });
+          }
+
+          // Meteors / Shooting stars effect
+          const meteors = Array.from({ length: 5 }, () => ({
+            x: Math.random() * width,
+            y: Math.random() * (height * 0.6),
+            length: Math.random() * 90 + 40,
+            speed: Math.random() * 3.5 + 2.5,
+            alpha: Math.random() * 0.5 + 0.2,
+          }));
+
+          const draw = () => {
+            ctx.clearRect(0, 0, width, height);
+
+            // Draw shooting meteors
+            meteors.forEach((m) => {
+              m.x += m.speed;
+              m.y += m.speed * 0.6;
+              if (m.x > width || m.y > height) {
+                m.x = Math.random() * width * 0.5 - 200;
+                m.y = Math.random() * height * 0.3;
+              }
+              const grad = ctx.createLinearGradient(
+                m.x,
+                m.y,
+                m.x - m.length,
+                m.y - m.length * 0.6,
+              );
+              grad.addColorStop(0, `rgba(168, 85, 247, ${m.alpha})`);
+              grad.addColorStop(1, "rgba(168, 85, 247, 0)");
+              ctx.beginPath();
+              ctx.moveTo(m.x, m.y);
+              ctx.lineTo(m.x - m.length, m.y - m.length * 0.6);
+              ctx.strokeStyle = grad;
+              ctx.lineWidth = 1.5;
+              ctx.stroke();
+            });
+
+            // Draw particles & floating code symbols
+            for (let i = 0; i < particles.length; i++) {
+              const p1 = particles[i];
+
+              p1.x += p1.vx;
+              p1.y += p1.vy;
+
+              if (p1.x < 0 || p1.x > width) p1.vx *= -1;
+              if (p1.y < 0 || p1.y > height) p1.vy *= -1;
+
+              const dxMouse = mouse.x - p1.x;
+              const dyMouse = mouse.y - p1.y;
+              const distMouse = Math.sqrt(
+                dxMouse * dxMouse + dyMouse * dyMouse,
+              );
+
+              if (distMouse < mouse.radius) {
+                const force = (mouse.radius - distMouse) / mouse.radius;
+                p1.x -= (dxMouse / distMouse) * force * 2.5;
+                p1.y -= (dyMouse / distMouse) * force * 2.5;
+
+                ctx.beginPath();
+                ctx.moveTo(p1.x, p1.y);
+                ctx.lineTo(mouse.x, mouse.y);
+                ctx.strokeStyle = `rgba(168, 85, 247, ${0.4 * (1 - distMouse / mouse.radius)})`;
+                ctx.lineWidth = 0.9;
+                ctx.stroke();
+              }
+
+              if (p1.isSymbol) {
+                ctx.font = `${p1.fontSize}px 'Fira Code', monospace`;
+                ctx.fillStyle = `rgba(192, 132, 252, ${p1.alpha * 0.85})`;
+                ctx.fillText(p1.symbol, p1.x, p1.y);
+              } else {
+                ctx.beginPath();
+                ctx.arc(p1.x, p1.y, p1.radius, 0, Math.PI * 2);
+                ctx.fillStyle = `rgba(168, 85, 247, ${p1.alpha})`;
+                ctx.fill();
+              }
+
+              for (let j = i + 1; j < particles.length; j++) {
+                const p2 = particles[j];
+                const dx = p1.x - p2.x;
+                const dy = p1.y - p2.y;
+                const dist = Math.sqrt(dx * dx + dy * dy);
+
+                if (dist < 125) {
+                  ctx.beginPath();
+                  ctx.moveTo(p1.x, p1.y);
+                  ctx.lineTo(p2.x, p2.y);
+                  ctx.strokeStyle = `rgba(124, 58, 237, ${0.25 * (1 - dist / 125)})`;
+                  ctx.lineWidth = 0.8;
+                  ctx.stroke();
+                }
+              }
+            }
+
+            animationFrameId = requestAnimationFrame(draw);
+          };
+
+          draw();
+
+          return () => {
+            window.removeEventListener("resize", handleResize);
+            window.removeEventListener("mousemove", handleMouseMove);
+            cancelAnimationFrame(animationFrameId);
+          };
+        }, []);
+
+        return (
+          <>
+            <canvas
+              ref={canvasRef}
+              className="fixed inset-0 pointer-events-none z-0 opacity-90"
+            />
+            <div
+              className="fixed inset-0 pointer-events-none z-0 transition-opacity duration-300"
+              style={{
+                background: `
+                                radial-gradient(650px circle at ${mousePos.x}px ${mousePos.y}px, rgba(124, 58, 237, 0.16), transparent 70%),
+                                radial-gradient(300px circle at ${mousePos.x}px ${mousePos.y}px, rgba(6, 182, 212, 0.08), transparent 80%)
+                            `,
+              }}
+            />
+          </>
+        );
+      }
+
+      function TiltCard({ children, className = "", soundEnabled = false }) {
+        const cardRef = React.useRef(null);
+        const [transform, setTransform] = React.useState(
+          "perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)",
+        );
+        const [glarePos, setGlarePos] = React.useState({
+          x: 50,
+          y: 50,
+          opacity: 0,
+        });
+
+        const handleMouseMove = (e) => {
+          if (!cardRef.current) return;
+          const rect = cardRef.current.getBoundingClientRect();
+          const x = e.clientX - rect.left;
+          const y = e.clientY - rect.top;
+
+          const centerX = rect.width / 2;
+          const centerY = rect.height / 2;
+
+          const rotateX = ((y - centerY) / centerY) * -9;
+          const rotateY = ((x - centerX) / centerX) * 9;
+
+          setTransform(
+            `perspective(1000px) rotateX(${rotateX.toFixed(2)}deg) rotateY(${rotateY.toFixed(2)}deg) scale3d(1.02, 1.02, 1.02)`,
+          );
+          setGlarePos({
+            x: (x / rect.width) * 100,
+            y: (y / rect.height) * 100,
+            opacity: 0.18,
+          });
+        };
+
+        const handleMouseEnter = () => {
+          if (soundEnabled) playSoundEffect("hover");
+        };
+
+        const handleMouseLeave = () => {
+          setTransform(
+            "perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)",
+          );
+          setGlarePos((prev) => ({ ...prev, opacity: 0 }));
+        };
+
+        return (
+          <div
+            ref={cardRef}
+            onMouseMove={handleMouseMove}
+            onMouseEnter={handleMouseEnter}
+            onMouseLeave={handleMouseLeave}
+            style={{ transform, transition: "transform 0.15s ease-out" }}
+            className={`glass-card rounded-2xl relative overflow-hidden ${className}`}
+          >
+            <div
+              className="pointer-events-none absolute inset-0 z-10 transition-opacity duration-300"
+              style={{
+                background: `radial-gradient(400px circle at ${glarePos.x}% ${glarePos.y}%, rgba(255,255,255,${glarePos.opacity}), transparent 80%)`,
+              }}
+            />
+            <div className="relative z-20">{children}</div>
+          </div>
+        );
+      }
+
+      function InteractiveTerminal({ soundEnabled }) {
+        const [input, setInput] = React.useState("");
+        const [history, setHistory] = React.useState([
+          { type: "system", text: "Initializing Mahee OS Terminal v2.4..." },
+          {
+            type: "system",
+            text: "Connected to International Islamic University Chittagong node.",
+          },
+          { type: "info", text: 'Type "help" to view available commands.' },
+        ]);
+
+        const handleCommand = (e) => {
+          if (e.key === "Enter") {
+            if (soundEnabled) playSoundEffect("click");
+            const cmd = input.trim().toLowerCase();
+            const newHist = [...history, { type: "user", text: `$ ${input}` }];
+
+            if (cmd === "help") {
+              newHist.push({
+                type: "response",
+                text: "Available commands:\n • help : Show command options\n • about : Display biography\n • skills : List core programming skills\n • cp : Show Codeforces profile\n • contact : Get email & phone\n • clear : Clear terminal window",
+              });
+            } else if (cmd === "about") {
+              newHist.push({
+                type: "response",
+                text: `${PORTFOLIO_DATA.fullName}\n${PORTFOLIO_DATA.degree} @ IIUC.\nPassionate about algorithms, C++, Java, and software development.`,
+              });
+            } else if (cmd === "skills") {
+              newHist.push({
+                type: "response",
+                text: "C++ (STL) • Java (OOP) • Data Structures & Algorithms • Competitive Programming • HTML5/CSS3/JS",
+              });
+            } else if (cmd === "cp") {
+              newHist.push({
+                type: "response",
+                text: `Codeforces Handle: @${PORTFOLIO_DATA.socials.codeforces.username}\nURL: ${PORTFOLIO_DATA.socials.codeforces.url}`,
+              });
+            } else if (cmd === "contact") {
+              newHist.push({
+                type: "response",
+                text: `Email: ${PORTFOLIO_DATA.email}\nPhone: ${PORTFOLIO_DATA.phone}\nLocation: ${PORTFOLIO_DATA.location}`,
+              });
+            } else if (cmd === "clear") {
+              setHistory([]);
+              setInput("");
+              return;
+            } else if (cmd !== "") {
+              newHist.push({
+                type: "error",
+                text: `Command not recognized: "${cmd}". Type "help" for valid commands.`,
+              });
+            }
+
+            setHistory(newHist);
+            setInput("");
+          }
+        };
+
+        return (
+          <div className="w-full rounded-2xl bg-[#080512] border border-purple-900/60 shadow-2xl overflow-hidden font-mono text-xs">
+            <div className="bg-[#120B24] px-4 py-3 flex items-center justify-between border-b border-purple-900/50">
+              <div className="flex items-center gap-2">
+                <span className="w-3 h-3 rounded-full bg-red-500/80 inline-block"></span>
+                <span className="w-3 h-3 rounded-full bg-yellow-500/80 inline-block"></span>
+                <span className="w-3 h-3 rounded-full bg-green-500/80 inline-block"></span>
+              </div>
+              <span className="text-gray-400 font-semibold text-[11px]">
+                mahee@iiuc-cse:~
+              </span>
+              <div className="w-4"></div>
+            </div>
+
+            <div className="p-4 h-64 overflow-y-auto space-y-2 text-gray-300">
+              {history.map((item, idx) => (
+                <div
+                  key={idx}
+                  className={
+                    item.type === "user"
+                      ? "text-purple-300 font-bold"
+                      : item.type === "error"
+                        ? "text-rose-400"
+                        : item.type === "system"
+                          ? "text-cyan-400/80"
+                          : "text-gray-300 whitespace-pre-line"
+                  }
+                >
+                  {item.text}
+                </div>
+              ))}
+
+              <div className="flex items-center gap-2 pt-1 text-purple-400">
+                <span>$</span>
+                <input
+                  type="text"
+                  value={input}
+                  onChange={(e) => setInput(e.target.value)}
+                  onKeyDown={handleCommand}
+                  placeholder="type command here..."
+                  className="bg-transparent border-none outline-none text-white w-full font-mono text-xs focus:ring-0"
+                />
+              </div>
+            </div>
+          </div>
+        );
+      }
+
+      function App() {
+        const [soundEnabled, setSoundEnabled] = React.useState(true);
+        const [activeNav, setActiveNav] = React.useState("home");
+        const [isScrolled, setIsScrolled] = React.useState(false);
+        const [mobileMenuOpen, setMobileMenuOpen] = React.useState(false);
+        const [rotatingIndex, setRotatingIndex] = React.useState(0);
+        const [copiedField, setCopiedField] = React.useState(null);
+        const [formSubmitted, setFormSubmitted] = React.useState(false);
+        const [formState, setFormState] = React.useState({
+          name: "",
+          email: "",
+          message: "",
+        });
+
+        React.useEffect(() => {
+          const interval = setInterval(() => {
+            setRotatingIndex(
+              (prev) => (prev + 1) % PORTFOLIO_DATA.heroRotatingText.length,
+            );
+          }, 3200);
+          return () => clearInterval(interval);
+        }, []);
+
+        React.useEffect(() => {
+          const handleScroll = () => {
+            setIsScrolled(window.scrollY > 40);
+
+            const sections = [
+              "home",
+              "about",
+              "skills",
+              "cp",
+              "projects",
+              "contact",
+            ];
+            const current = sections.find((sec) => {
+              const el = document.getElementById(sec);
+              if (el) {
+                const rect = el.getBoundingClientRect();
+                return rect.top <= 200 && rect.bottom >= 200;
+              }
+              return false;
+            });
+            if (current) setActiveNav(current);
+
+            const reveals = document.querySelectorAll(".reveal-element");
+            reveals.forEach((el) => {
+              const top = el.getBoundingClientRect().top;
+              if (top < window.innerHeight - 80) {
+                el.classList.add("is-visible");
+              }
+            });
+          };
+
+          window.addEventListener("scroll", handleScroll);
+          handleScroll();
+          return () => window.removeEventListener("scroll", handleScroll);
+        }, []);
+
+        React.useEffect(() => {
+          if (window.lucide) {
+            window.lucide.createIcons();
+          }
+        });
+
+        const scrollToSection = (id) => {
+          if (soundEnabled) playSoundEffect("click");
+          setMobileMenuOpen(false);
+          const el = document.getElementById(id);
+          if (el) {
+            el.scrollIntoView({ behavior: "smooth" });
+          }
+        };
+
+        const copyToClipboard = (text, fieldName) => {
+          if (soundEnabled) playSoundEffect("click");
+          const textarea = document.createElement("textarea");
+          textarea.value = text;
+          document.body.appendChild(textarea);
+          textarea.select();
+          try {
+            document.execCommand("copy");
+            setCopiedField(fieldName);
+            setTimeout(() => setCopiedField(null), 2500);
+          } catch (err) {}
+          document.body.removeChild(textarea);
+        };
+
+        const handleFormSubmit = (e) => {
+          e.preventDefault();
+          if (soundEnabled) playSoundEffect("click");
+          setFormSubmitted(true);
+          setFormState({ name: "", email: "", message: "" });
+          setTimeout(() => setFormSubmitted(false), 5000);
+        };
+
+        return (
+          <div className="relative bg-[#040308] text-gray-100 min-h-screen">
+            {/* Cyber Grid Pattern Background Overlay */}
+            <div className="fixed inset-0 bg-cyber-grid pointer-events-none z-0 opacity-60"></div>
+
+            <DynamicBackgroundCanvas />
+
+            <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden">
+              <div className="absolute top-[-120px] left-[-120px] w-[580px] h-[580px] bg-[#7C3AED]/25 rounded-full blur-[150px] animate-aurora"></div>
+              <div className="absolute top-[40%] right-[-120px] w-[650px] h-[650px] bg-[#A855F7]/20 rounded-full blur-[170px] animate-pulse-slow"></div>
+              <div className="absolute bottom-[-100px] left-[25%] w-[580px] h-[580px] bg-[#06B6D4]/15 rounded-full blur-[150px] animate-aurora"></div>
+            </div>
+
+            {/* Header Navbar */}
+            <header
+              className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled ? "bg-[#040308]/90 backdrop-blur-md border-b border-purple-900/40 py-3 shadow-2xl" : "bg-transparent py-5"}`}
+            >
+              <div className="max-w-7xl mx-auto px-6 flex items-center justify-between">
+                <a
+                  href="#home"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    scrollToSection("home");
+                  }}
+                  className="flex items-center gap-3 group"
+                >
+                  <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#7C3AED] to-[#A855F7] flex items-center justify-center font-mono font-bold text-white shadow-lg shadow-purple-600/30 group-hover:scale-105 transition-transform">
+                    M
+                  </div>
+                  <div className="flex flex-col">
+                    <span className="font-extrabold text-base tracking-tight text-white group-hover:text-purple-300 transition-colors">
+                      {PORTFOLIO_DATA.fullName}
+                    </span>
+                    <span className="text-[10px] text-purple-400 font-mono">
+                      CSE Undergraduate @ IIUC
+                    </span>
+                  </div>
+                </a>
+
+                <nav className="hidden lg:flex items-center gap-1 bg-[#0C0816]/80 p-1.5 rounded-full border border-purple-900/40 backdrop-blur-md">
+                  {[
+                    { id: "home", label: "Home" },
+                    { id: "about", label: "About" },
+                    { id: "skills", label: "Skills" },
+                    { id: "cp", label: "CP & Codeforces" },
+                    { id: "projects", label: "Projects" },
+                    { id: "contact", label: "Contact" },
+                  ].map((item) => (
+                    <button
+                      key={item.id}
+                      onClick={() => scrollToSection(item.id)}
+                      className={`px-4 py-1.5 rounded-full text-xs font-semibold transition-all duration-200 ${
+                        activeNav === item.id
+                          ? "bg-[#7C3AED] text-white shadow-md shadow-purple-600/40"
+                          : "text-gray-400 hover:text-white hover:bg-purple-900/20"
+                      }`}
+                    >
+                      {item.label}
+                    </button>
+                  ))}
+                </nav>
+
+                <div className="hidden lg:flex items-center gap-3">
+                  <button
+                    onClick={() => setSoundEnabled(!soundEnabled)}
+                    title={soundEnabled ? "Mute Sound FX" : "Enable Sound FX"}
+                    className={`p-2 rounded-xl border text-xs font-mono transition-all flex items-center gap-1.5 ${
+                      soundEnabled
+                        ? "bg-purple-950/60 border-purple-500/50 text-purple-300"
+                        : "bg-[#0C0816] border-purple-900/40 text-gray-500"
+                    }`}
+                  >
+                    <i
+                      data-lucide={soundEnabled ? "volume-2" : "volume-x"}
+                      class="w-4 h-4"
+                    ></i>
+                  </button>
+
+                  <a
+                    href={PORTFOLIO_DATA.socials.github.url}
+                    target="_blank"
+                    rel="noreferrer"
+                    title="GitHub Repository"
+                    className="p-2.5 rounded-xl bg-[#0C0816] border border-purple-900/40 text-gray-400 hover:text-white hover:border-purple-500/50 transition-all hover:scale-105"
+                  >
+                    <i data-lucide="github" class="w-4 h-4"></i>
+                  </a>
+
+                  <button
+                    onClick={() => scrollToSection("contact")}
+                    className="purple-gradient-btn px-4 py-2 rounded-xl text-white text-xs font-semibold shadow-lg shadow-purple-600/30"
+                  >
+                    Let's Connect
+                  </button>
+                </div>
+
+                <button
+                  onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+                  className="lg:hidden p-2 text-gray-300 hover:text-white"
+                >
+                  <i
+                    data-lucide={mobileMenuOpen ? "x" : "menu"}
+                    class="w-6 h-6"
+                  ></i>
+                </button>
+              </div>
+
+              {mobileMenuOpen && (
+                <div className="lg:hidden bg-[#0C0816] border-b border-purple-900/40 px-6 py-4 space-y-3 backdrop-blur-xl">
+                  {[
+                    { id: "home", label: "Home" },
+                    { id: "about", label: "About" },
+                    { id: "skills", label: "Skills" },
+                    { id: "cp", label: "Competitive Programming" },
+                    { id: "projects", label: "Projects" },
+                    { id: "contact", label: "Contact" },
+                  ].map((item) => (
+                    <button
+                      key={item.id}
+                      onClick={() => scrollToSection(item.id)}
+                      className="block w-full text-left py-2 text-sm text-gray-300 hover:text-[#A855F7] font-medium"
+                    >
+                      {item.label}
+                    </button>
+                  ))}
+                </div>
+              )}
+            </header>
+
+            {/* HERO SECTION */}
+            {}
+            <section
+              id="home"
+              className="relative z-10 pt-32 pb-20 md:pt-44 md:pb-28 max-w-7xl mx-auto px-6"
+            >
+              <div className="grid md:grid-cols-12 gap-12 items-center">
+                <div className="md:col-span-7 space-y-6">
+                  <div className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-[#0C0816] border border-purple-500/30 text-purple-300 text-xs font-mono shadow-md">
+                    <span className="w-2 h-2 rounded-full bg-[#A855F7] animate-ping"></span>
+                    {PORTFOLIO_DATA.department}
+                  </div>
+
+                  <div className="space-y-2">
+                    <p className="text-gray-400 text-sm font-mono tracking-wider uppercase">
+                      Welcome to my portfolio
+                    </p>
+                    <h1 className="text-3xl sm:text-5xl lg:text-6xl font-black tracking-tight leading-tight">
+                      Hi, I'm{" "}
+                      <span className="text-gradient">
+                        {PORTFOLIO_DATA.fullName}
+                      </span>
+                    </h1>
+                  </div>
+
+                  <div className="h-9 flex items-center font-mono text-base sm:text-xl text-[#A855F7]">
+                    <span className="text-gray-500 mr-2">&gt;</span>
+                    <span className="transition-all duration-300 border-b-2 border-purple-500/50 pb-0.5">
+                      {PORTFOLIO_DATA.heroRotatingText[rotatingIndex]}
+                    </span>
+                    <span className="ml-1.5 w-2.5 h-6 bg-[#A855F7] animate-pulse"></span>
+                  </div>
+
+                  <p className="text-gray-300 text-sm sm:text-base leading-relaxed max-w-xl">
+                    {PORTFOLIO_DATA.introShort}
+                  </p>
+
+                  <div className="flex flex-wrap items-center gap-4 pt-2">
+                    <button
+                      onClick={() => scrollToSection("projects")}
+                      className="purple-gradient-btn px-6 py-3.5 rounded-xl text-white font-semibold text-sm shadow-xl shadow-purple-600/30 flex items-center gap-2"
+                    >
+                      <span>Explore Featured Work</span>
+                      <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                    </button>
+                    <button
+                      onClick={() => scrollToSection("contact")}
+                      className="px-6 py-3.5 rounded-xl bg-[#0C0816] border border-purple-900/50 hover:border-purple-500/60 text-gray-200 font-semibold text-sm transition-all transform hover:-translate-y-0.5 flex items-center gap-2"
+                    >
+                      <i data-lucide="mail" class="w-4 h-4 text-purple-400"></i>
+                      <span>Contact Me</span>
+                    </button>
+                  </div>
+
+                  {/* CRITICALLY CLEAR PROFILES & LINKS SECTION */}
+                  <div className="pt-4 border-t border-purple-900/30 space-y-3">
+                    <span className="text-xs text-gray-400 uppercase tracking-widest font-mono">
+                      Verified Social & Coding Profiles:
+                    </span>
+                    <div className="grid sm:grid-cols-3 gap-3">
+                      <a
+                        href={PORTFOLIO_DATA.socials.github.url}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="p-3 rounded-xl bg-[#0C0816] border border-purple-900/40 hover:border-purple-500 transition-all group flex items-center gap-2.5"
+                      >
+                        <div className="p-2 rounded-lg bg-purple-950 text-purple-300 group-hover:bg-purple-900">
+                          <i data-lucide="github" class="w-4 h-4"></i>
+                        </div>
+                        <div className="flex flex-col">
+                          <span className="text-xs font-bold text-white group-hover:text-purple-300">
+                            GitHub
+                          </span>
+                          <span className="text-[10px] text-gray-400 font-mono">
+                            maheecse
+                          </span>
+                        </div>
+                      </a>
+
+                      <a
+                        href={PORTFOLIO_DATA.socials.linkedin.url}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="p-3 rounded-xl bg-[#0C0816] border border-purple-900/40 hover:border-purple-500 transition-all group flex items-center gap-2.5"
+                      >
+                        <div className="p-2 rounded-lg bg-purple-950 text-purple-300 group-hover:bg-purple-900">
+                          <i data-lucide="linkedin" class="w-4 h-4"></i>
+                        </div>
+                        <div className="flex flex-col">
+                          <span className="text-xs font-bold text-white group-hover:text-purple-300">
+                            LinkedIn
+                          </span>
+                          <span className="text-[10px] text-gray-400 font-mono">
+                            Professional Profile
+                          </span>
+                        </div>
+                      </a>
+
+                      <a
+                        href={PORTFOLIO_DATA.socials.codeforces.url}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="p-3 rounded-xl bg-[#0C0816] border border-purple-900/40 hover:border-purple-500 transition-all group flex items-center gap-2.5"
+                      >
+                        <div className="p-2 rounded-lg bg-purple-950 text-purple-300 group-hover:bg-purple-900">
+                          <i data-lucide="code-2" class="w-4 h-4"></i>
+                        </div>
+                        <div className="flex flex-col">
+                          <span className="text-xs font-bold text-white group-hover:text-purple-300">
+                            Codeforces
+                          </span>
+                          <span className="text-[10px] text-gray-400 font-mono">
+                            @maheecse
+                          </span>
+                        </div>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="md:col-span-5 relative animate-float">
+                  <InteractiveTerminal soundEnabled={soundEnabled} />
+                </div>
+              </div>
+            </section>
+
+            {/* ABOUT SECTION */}
+            {}
+            <section
+              id="about"
+              className="relative z-10 py-20 max-w-7xl mx-auto px-6 border-t border-purple-900/20 reveal-element"
+            >
+              <div className="space-y-12">
+                <div className="space-y-3">
+                  <div className="text-xs font-mono text-purple-400 uppercase tracking-widest">
+                    Biography & Background
+                  </div>
+                  <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-gradient">
+                    About {PORTFOLIO_DATA.fullName}
+                  </h2>
+                  <p className="text-gray-300 text-base max-w-3xl leading-relaxed">
+                    {PORTFOLIO_DATA.introAbout}
+                  </p>
+                </div>
+
+                <div className="grid sm:grid-cols-3 gap-6">
+                  <TiltCard
+                    className="p-6 space-y-3"
+                    soundEnabled={soundEnabled}
+                  >
+                    <div className="w-11 h-11 rounded-xl bg-purple-900/40 border border-purple-700/50 flex items-center justify-center text-purple-300 shadow-md">
+                      <i data-lucide="graduation-cap" class="w-6 h-6"></i>
+                    </div>
+                    <h3 className="font-bold text-lg text-white">
+                      🎓 Academic Standing
+                    </h3>
+                    <p className="text-xs text-gray-300 leading-relaxed">
+                      Studying at{" "}
+                      <span className="text-purple-300 font-semibold">
+                        {PORTFOLIO_DATA.university}
+                      </span>
+                      .<br />
+                      Department of Computer Science & Engineering.
+                    </p>
+                  </TiltCard>
+
+                  <TiltCard
+                    className="p-6 space-y-3"
+                    soundEnabled={soundEnabled}
+                  >
+                    <div className="w-11 h-11 rounded-xl bg-purple-900/40 border border-purple-700/50 flex items-center justify-center text-purple-300 shadow-md">
+                      <i data-lucide="cpu" class="w-6 h-6"></i>
+                    </div>
+                    <h3 className="font-bold text-lg text-white">
+                      💻 Technical Focus
+                    </h3>
+                    <p className="text-xs text-gray-300 leading-relaxed">
+                      Algorithmic efficiency, C++ STL, Java Object-Oriented
+                      paradigms, Data Structures, and software design.
+                    </p>
+                  </TiltCard>
+
+                  <TiltCard
+                    className="p-6 space-y-3"
+                    soundEnabled={soundEnabled}
+                  >
+                    <div className="w-11 h-11 rounded-xl bg-purple-900/40 border border-purple-700/50 flex items-center justify-center text-purple-300 shadow-md">
+                      <i data-lucide="trophy" class="w-6 h-6"></i>
+                    </div>
+                    <h3 className="font-bold text-lg text-white">
+                      🏆 Problem Solving
+                    </h3>
+                    <p className="text-xs text-gray-300 leading-relaxed">
+                      Active participant in competitive programming contests on
+                      Codeforces under handle{" "}
+                      <span className="text-purple-300 font-mono">
+                        @maheecse
+                      </span>
+                      .
+                    </p>
+                  </TiltCard>
+                </div>
+              </div>
+            </section>
+
+            {/* UNIVERSITY BADGE BANNER */}
+            <section className="relative z-10 py-8 max-w-7xl mx-auto px-6 reveal-element">
+              <TiltCard
+                className="p-8 relative overflow-hidden"
+                soundEnabled={soundEnabled}
+              >
+                <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
+                  <div className="space-y-2">
+                    <div className="flex items-center gap-2 text-xs font-mono text-purple-400 uppercase tracking-widest">
+                      <i data-lucide="building" class="w-4 h-4"></i> University
+                      Education
+                    </div>
+                    <h3 className="text-2xl font-black text-white">
+                      {PORTFOLIO_DATA.university}
+                    </h3>
+                    <p className="text-purple-300 font-medium text-sm">
+                      {PORTFOLIO_DATA.degree}
+                    </p>
+                    <p className="text-xs text-gray-400">
+                      {PORTFOLIO_DATA.department} • Chattogram, Bangladesh
+                    </p>
+                  </div>
+
+                  <div className="flex items-center gap-3 bg-purple-950/60 border border-purple-700/50 px-4 py-2.5 rounded-xl self-start md:self-auto shadow-inner">
+                    <span className="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse"></span>
+                    <span className="text-xs font-mono text-purple-200 font-semibold">
+                      {PORTFOLIO_DATA.status}
+                    </span>
+                  </div>
+                </div>
+              </TiltCard>
+            </section>
+
+            {/* SKILLS SECTION */}
+            {}
+            <section
+              id="skills"
+              className="relative z-10 py-20 max-w-7xl mx-auto px-6 border-t border-purple-900/20 reveal-element"
+            >
+              <div className="space-y-12">
+                <div className="space-y-2">
+                  <div className="text-xs font-mono text-purple-400 uppercase tracking-widest">
+                    Capabilities & Expertise
+                  </div>
+                  <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-gradient">
+                    Technical Skills & Languages
+                  </h2>
+                  <p className="text-gray-400 text-sm">
+                    Detailed breakdown of programming languages, computer
+                    science fundamentals, and development tools I work with.
+                  </p>
+                </div>
+
+                <div className="grid md:grid-cols-3 gap-6">
+                  {PORTFOLIO_DATA.skills.map((skill, idx) => (
+                    <TiltCard
+                      key={idx}
+                      className="p-5 space-y-4"
+                      soundEnabled={soundEnabled}
+                    >
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center gap-2.5">
+                          <div className="p-2 rounded-lg bg-purple-900/30 border border-purple-700/40 text-purple-300">
+                            <i data-lucide={skill.icon} class="w-4 h-4"></i>
+                          </div>
+                          <span className="font-bold text-sm text-white">
+                            {skill.name}
+                          </span>
+                        </div>
+                        <span className="text-xs font-mono font-semibold text-purple-300">
+                          {skill.level}%
+                        </span>
+                      </div>
+
+                      <div className="w-full h-2 rounded-full bg-purple-950/80 overflow-hidden p-0.5 border border-purple-900/40">
+                        <div
+                          className="h-full rounded-full bg-gradient-to-r from-[#7C3AED] to-[#A855F7] transition-all duration-1000 ease-out"
+                          style={{ width: `${skill.level}%` }}
+                        />
+                      </div>
+
+                      <p className="text-xs text-gray-400 leading-relaxed">
+                        {skill.desc}
+                      </p>
+                    </TiltCard>
+                  ))}
+                </div>
+              </div>
+            </section>
+
+            {/* COMPETITIVE PROGRAMMING SECTION */}
+            {}
+            <section
+              id="cp"
+              className="relative z-10 py-20 max-w-7xl mx-auto px-6 border-t border-purple-900/20 reveal-element"
+            >
+              <div className="grid md:grid-cols-12 gap-12 items-center">
+                <div className="md:col-span-6 space-y-6">
+                  <div className="text-xs font-mono text-purple-400 uppercase tracking-widest">
+                    Algorithmic Problem Solving
+                  </div>
+                  <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-gradient">
+                    Competitive Programming
+                  </h2>
+                  <p className="text-gray-300 text-sm leading-relaxed">
+                    I regularly participate in coding contests to sharpen my
+                    problem-solving speed, dynamic logic, graph theory, math
+                    strategies, and complexity optimization under strict time
+                    limits.
+                  </p>
+
+                  <div className="space-y-3 text-xs text-gray-300 font-mono">
+                    <div className="flex items-center gap-3 p-3 rounded-xl glass-card">
+                      <i
+                        data-lucide="check-circle-2"
+                        class="w-5 h-5 text-purple-400"
+                      ></i>
+                      <span>
+                        C++ STL containers (vector, map, set, priority_queue)
+                      </span>
+                    </div>
+                    <div className="flex items-center gap-3 p-3 rounded-xl glass-card">
+                      <i
+                        data-lucide="check-circle-2"
+                        class="w-5 h-5 text-purple-400"
+                      ></i>
+                      <span>
+                        Binary search, recursion, divide & conquer techniques
+                      </span>
+                    </div>
+                    <div className="flex items-center gap-3 p-3 rounded-xl glass-card">
+                      <i
+                        data-lucide="check-circle-2"
+                        class="w-5 h-5 text-purple-400"
+                      ></i>
+                      <span>Big-O Time & Space Complexity analysis</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="md:col-span-6">
+                  <TiltCard
+                    className="p-8 space-y-6 border border-purple-500/40"
+                    soundEnabled={soundEnabled}
+                  >
+                    <div className="flex items-center justify-between border-b border-purple-900/40 pb-4">
+                      <div className="flex items-center gap-3">
+                        <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-[#7C3AED] to-[#A855F7] flex items-center justify-center font-black text-white text-lg font-mono shadow-md">
+                          CF
+                        </div>
+                        <div>
+                          <h3 className="font-extrabold text-white text-lg">
+                            Codeforces Platform
+                          </h3>
+                          <p className="text-xs text-gray-400">
+                            Handle:{" "}
+                            <span className="text-purple-300 font-mono font-bold">
+                              @{PORTFOLIO_DATA.socials.codeforces.username}
+                            </span>
+                          </p>
+                        </div>
+                      </div>
+                      <span className="px-2.5 py-1 rounded-full bg-purple-900/40 border border-purple-700/40 text-purple-300 text-[11px] font-mono">
+                        Active Contested
+                      </span>
+                    </div>
+
+                    <p className="text-xs text-gray-300 leading-relaxed">
+                      Check out my latest submissions, solved problems, contest
+                      history, and competitive programming statistics directly
+                      on Codeforces.
+                    </p>
+
+                    <a
+                      href={PORTFOLIO_DATA.socials.codeforces.url}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="purple-gradient-btn inline-flex items-center justify-center w-full py-3.5 rounded-xl text-white text-xs font-bold shadow-lg shadow-purple-600/30 gap-2"
+                    >
+                      <span>Visit Codeforces Profile</span>
+                      <i data-lucide="external-link" class="w-4 h-4"></i>
+                    </a>
+                  </TiltCard>
+                </div>
+              </div>
+            </section>
+
+            {/* FEATURED PROJECTS */}
+            {}
+            <section
+              id="projects"
+              className="relative z-10 py-20 max-w-7xl mx-auto px-6 border-t border-purple-900/20 reveal-element"
+            >
+              <div className="space-y-12">
+                <div className="space-y-2">
+                  <div className="text-xs font-mono text-purple-400 uppercase tracking-widest">
+                    Portfolio Showcase
+                  </div>
+                  <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-gradient">
+                    Featured Projects
+                  </h2>
+                  <p className="text-gray-400 text-sm">
+                    Selected software engineering projects, academic
+                    implementations, and web utilities.
+                  </p>
+                </div>
+
+                <div className="grid md:grid-cols-3 gap-8">
+                  {PORTFOLIO_DATA.projects.map((proj) => (
+                    <TiltCard
+                      key={proj.id}
+                      className="p-6 flex flex-col justify-between space-y-6"
+                      soundEnabled={soundEnabled}
+                    >
+                      <div className="space-y-4">
+                        <div className="flex items-center justify-between">
+                          <span className="text-xs font-mono font-bold text-purple-400">
+                            PROJECT {proj.id}
+                          </span>
+                          <span className="text-[10px] font-mono bg-purple-950/80 border border-purple-800/40 text-purple-300 px-2.5 py-0.5 rounded-full">
+                            {proj.status}
+                          </span>
+                        </div>
+                        <h3 className="text-xl font-extrabold text-white group-hover:text-purple-300 transition-colors">
+                          {proj.title}
+                        </h3>
+                        <p className="text-xs text-gray-300 leading-relaxed">
+                          {proj.description}
+                        </p>
+                      </div>
+
+                      <div className="space-y-4">
+                        <div className="flex flex-wrap gap-1.5">
+                          {proj.technologies.map((tech) => (
+                            <span
+                              key={tech}
+                              className="text-[10px] font-mono bg-purple-950/60 border border-purple-800/40 text-purple-200 px-2.5 py-1 rounded-md"
+                            >
+                              {tech}
+                            </span>
+                          ))}
+                        </div>
+
+                        <div className="pt-3 border-t border-purple-900/30 flex items-center justify-between">
+                          <a
+                            href={proj.githubUrl}
+                            target="_blank"
+                            rel="noreferrer"
+                            className="text-xs text-purple-300 hover:text-white flex items-center gap-1.5 font-mono transition-colors font-semibold"
+                          >
+                            <i data-lucide="github" class="w-4 h-4"></i> View
+                            Repository
+                          </a>
+                        </div>
+                      </div>
+                    </TiltCard>
+                  ))}
+                </div>
+              </div>
+            </section>
+
+            {/* JOURNEY & TIMELINE */}
+            {}
+            <section className="relative z-10 py-20 max-w-7xl mx-auto px-6 border-t border-purple-900/20 reveal-element">
+              <div className="space-y-12">
+                <div className="space-y-2">
+                  <div className="text-xs font-mono text-purple-400 uppercase tracking-widest">
+                    Roadmap
+                  </div>
+                  <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-gradient">
+                    Academic & Coding Journey
+                  </h2>
+                  <p className="text-gray-400 text-sm">
+                    Key milestones in my technical growth as a CSE student.
+                  </p>
+                </div>
+
+                <div className="relative border-l-2 border-purple-900/60 ml-4 space-y-8 pl-8">
+                  {PORTFOLIO_DATA.journeySteps.map((item) => (
+                    <div key={item.step} className="relative group">
+                      <span className="absolute -left-[41px] top-1 w-4 h-4 rounded-full bg-[#040308] border-2 border-[#7C3AED] group-hover:bg-[#A855F7] group-hover:scale-125 transition-all shadow-md shadow-purple-600/50"></span>
+                      <h3 className="text-base font-bold text-white flex items-center gap-2">
+                        <span className="text-xs font-mono text-purple-400 font-bold">
+                          [{item.step}]
+                        </span>{" "}
+                        {item.title}
+                      </h3>
+                      <p className="text-xs text-gray-300 mt-1 leading-relaxed">
+                        {item.detail}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </section>
+
+            {/* PHOTOGRAPHY */}
+            {}
+            <section className="relative z-10 py-20 max-w-7xl mx-auto px-6 border-t border-purple-900/20 reveal-element">
+              <div className="space-y-8">
+                <div className="space-y-2">
+                  <div className="text-xs font-mono text-purple-400 uppercase tracking-widest">
+                    Personal Hobbies
+                  </div>
+                  <h2 className="text-3xl font-extrabold tracking-tight text-gradient">
+                    Beyond Code: Photography
+                  </h2>
+                  <p className="text-gray-400 text-sm">
+                    Capturing perspective, light, and geometry when taking a
+                    break from programming.
+                  </p>
+                </div>
+
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                  {PORTFOLIO_DATA.photography.map((item, idx) => (
+                    <TiltCard
+                      key={idx}
+                      className="p-4 space-y-3"
+                      soundEnabled={soundEnabled}
+                    >
+                      <div className="w-full h-32 bg-purple-950/40 rounded-xl flex items-center justify-center border border-purple-900/40 text-purple-400">
+                        <i data-lucide="camera" class="w-8 h-8 opacity-70"></i>
+                      </div>
+                      <div className="flex items-center justify-between">
+                        <span className="text-xs font-bold text-white">
+                          {item.title}
+                        </span>
+                        <span className="text-[10px] font-mono text-purple-300 bg-purple-950/70 px-2 py-0.5 rounded border border-purple-800/30">
+                          {item.tag}
+                        </span>
+                      </div>
+                    </TiltCard>
+                  ))}
+                </div>
+              </div>
+            </section>
+
+            {/* CONTACT SECTION */}
+            {}
+            <section
+              id="contact"
+              className="relative z-10 py-20 max-w-7xl mx-auto px-6 border-t border-purple-900/20 reveal-element"
+            >
+              <div className="grid md:grid-cols-12 gap-12">
+                <div className="md:col-span-5 space-y-6">
+                  <div className="text-xs font-mono text-purple-400 uppercase tracking-widest">
+                    Get In Touch
+                  </div>
+                  <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-gradient">
+                    Let's Connect & Collaborate
+                  </h2>
+                  <p className="text-gray-300 text-sm leading-relaxed">
+                    I am always interested in discussing computer science
+                    topics, algorithm strategies, web development, and software
+                    opportunities.
+                  </p>
+
+                  <div className="space-y-3 font-mono text-xs text-gray-300">
+                    <TiltCard
+                      className="p-4 flex items-center justify-between"
+                      soundEnabled={soundEnabled}
+                    >
+                      <span className="text-gray-400 flex items-center gap-2">
+                        <i
+                          data-lucide="mail"
+                          class="w-4 h-4 text-purple-400"
+                        ></i>{" "}
+                        Email
+                      </span>
+                      <button
+                        onClick={() =>
+                          copyToClipboard(PORTFOLIO_DATA.email, "email")
+                        }
+                        className="text-purple-300 hover:text-white font-semibold transition-colors"
+                      >
+                        {copiedField === "email"
+                          ? "Copied to Clipboard!"
+                          : PORTFOLIO_DATA.email}
+                      </button>
+                    </TiltCard>
+
+                    <TiltCard
+                      className="p-4 flex items-center justify-between"
+                      soundEnabled={soundEnabled}
+                    >
+                      <span className="text-gray-400 flex items-center gap-2">
+                        <i
+                          data-lucide="phone"
+                          class="w-4 h-4 text-purple-400"
+                        ></i>{" "}
+                        Phone
+                      </span>
+                      <button
+                        onClick={() =>
+                          copyToClipboard(PORTFOLIO_DATA.phone, "phone")
+                        }
+                        className="text-purple-300 hover:text-white font-semibold transition-colors"
+                      >
+                        {copiedField === "phone"
+                          ? "Copied to Clipboard!"
+                          : PORTFOLIO_DATA.phone}
+                      </button>
+                    </TiltCard>
+
+                    <TiltCard
+                      className="p-4 flex items-center justify-between"
+                      soundEnabled={soundEnabled}
+                    >
+                      <span className="text-gray-400 flex items-center gap-2">
+                        <i
+                          data-lucide="github"
+                          class="w-4 h-4 text-purple-400"
+                        ></i>{" "}
+                        GitHub
+                      </span>
+                      <a
+                        href={PORTFOLIO_DATA.socials.github.url}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="text-purple-300 hover:text-white transition-colors"
+                      >
+                        @{PORTFOLIO_DATA.socials.github.username}
+                      </a>
+                    </TiltCard>
+
+                    <TiltCard
+                      className="p-4 flex items-center justify-between"
+                      soundEnabled={soundEnabled}
+                    >
+                      <span className="text-gray-400 flex items-center gap-2">
+                        <i
+                          data-lucide="map-pin"
+                          class="w-4 h-4 text-purple-400"
+                        ></i>{" "}
+                        Location
+                      </span>
+                      <span className="text-gray-200">
+                        {PORTFOLIO_DATA.location}
+                      </span>
+                    </TiltCard>
+                  </div>
+                </div>
+
+                <div className="md:col-span-7">
+                  <TiltCard
+                    className="p-8 space-y-4"
+                    soundEnabled={soundEnabled}
+                  >
+                    {formSubmitted && (
+                      <div className="p-4 rounded-xl bg-purple-950/80 border border-purple-600 text-purple-200 text-xs font-mono text-center shadow-lg">
+                        ✓ Message received! Thank you for connecting with{" "}
+                        {PORTFOLIO_DATA.fullName}.
+                      </div>
+                    )}
+
+                    <form onSubmit={handleFormSubmit} className="space-y-4">
+                      <div className="space-y-1">
+                        <label className="text-xs font-mono text-gray-300">
+                          Your Full Name
+                        </label>
+                        <input
+                          type="text"
+                          required
+                          value={formState.name}
+                          onChange={(e) =>
+                            setFormState({ ...formState, name: e.target.value })
+                          }
+                          placeholder="e.g. Alex Johnson"
+                          className="w-full px-4 py-3 rounded-xl bg-[#040308] border border-purple-900/50 text-sm text-white focus:outline-none focus:border-purple-500 transition-colors"
+                        />
+                      </div>
+
+                      <div className="space-y-1">
+                        <label className="text-xs font-mono text-gray-300">
+                          Your Email Address
+                        </label>
+                        <input
+                          type="email"
+                          required
+                          value={formState.email}
+                          onChange={(e) =>
+                            setFormState({
+                              ...formState,
+                              email: e.target.value,
+                            })
+                          }
+                          placeholder="alex@example.com"
+                          className="w-full px-4 py-3 rounded-xl bg-[#040308] border border-purple-900/50 text-sm text-white focus:outline-none focus:border-purple-500 transition-colors"
+                        />
+                      </div>
+
+                      <div className="space-y-1">
+                        <label className="text-xs font-mono text-gray-300">
+                          Message
+                        </label>
+                        <textarea
+                          rows="4"
+                          required
+                          value={formState.message}
+                          onChange={(e) =>
+                            setFormState({
+                              ...formState,
+                              message: e.target.value,
+                            })
+                          }
+                          placeholder="Hello Shahriar, I would like to connect with you regarding..."
+                          className="w-full px-4 py-3 rounded-xl bg-[#040308] border border-purple-900/50 text-sm text-white focus:outline-none focus:border-purple-500 transition-colors"
+                        ></textarea>
+                      </div>
+
+                      <button
+                        type="submit"
+                        className="purple-gradient-btn w-full py-3.5 rounded-xl text-white text-xs font-bold shadow-lg shadow-purple-600/30 flex items-center justify-center gap-2"
+                      >
+                        <span>Send Direct Message</span>
+                        <i data-lucide="send" class="w-4 h-4"></i>
+                      </button>
+                    </form>
+                  </TiltCard>
+                </div>
+              </div>
+            </section>
+
+            {/* FOOTER */}
+            {}
+            <footer className="relative z-10 py-12 border-t border-purple-900/30 bg-[#040308] text-xs text-gray-400">
+              <div className="max-w-7xl mx-auto px-6 flex flex-col sm:flex-row items-center justify-between gap-6">
+                <div>
+                  <span className="font-extrabold text-gray-200 text-sm">
+                    {PORTFOLIO_DATA.fullName}
+                  </span>
+                  <p className="text-[11px] text-gray-400 mt-0.5">
+                    {PORTFOLIO_DATA.roleHeadline}
+                  </p>
+                </div>
+
+                <p className="font-mono text-[11px] text-gray-400">
+                  © 2026 {PORTFOLIO_DATA.fullName}. Engineered with code &
+                  motion.
+                </p>
+              </div>
+            </footer>
+          </div>
+        );
+      }
+
+      ReactDOM.createRoot(document.getElementById("root")).render(<App />);
+    </script>
+  </body>
+</html>
