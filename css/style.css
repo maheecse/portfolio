@@ -1,0 +1,103 @@
+@import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+
+html, body {
+    background-color: #040308;
+    color: #ffffff;
+    font-family: 'Inter', sans-serif;
+    overflow-x: hidden;
+}
+
+/* 3D Glassmorphism Cards */
+.glass-card {
+    background: rgba(12, 8, 22, 0.68);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    border: 1px solid rgba(124, 58, 237, 0.22);
+    transition: border-color 0.4s ease, box-shadow 0.4s ease, transform 0.2s cubic-bezier(0.2, 0.8, 0.2, 1);
+    transform-style: preserve-3d;
+}
+
+.glass-card:hover {
+    border-color: rgba(168, 85, 247, 0.6);
+    box-shadow: 0 20px 40px -10px rgba(124, 58, 237, 0.35), 0 0 25px rgba(168, 85, 247, 0.2);
+}
+
+.text-gradient {
+    background: linear-gradient(135deg, #FFFFFF 0%, #E9D5FF 40%, #A855F7 80%, #7C3AED 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.purple-gradient-btn {
+    background: linear-gradient(135deg, #7C3AED 0%, #A855F7 100%);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+}
+
+.purple-gradient-btn::before {
+    content: '';
+    position: absolute;
+    top: 0; left: -100%;
+    width: 100%; height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.25), transparent);
+    transition: left 0.6s ease;
+}
+
+.purple-gradient-btn:hover::before {
+    left: 100%;
+}
+
+.purple-gradient-btn:hover {
+    box-shadow: 0 0 30px rgba(168, 85, 247, 0.7);
+    transform: translateY(-2px) scale(1.02);
+}
+
+.purple-gradient-btn:active {
+    transform: translateY(0) scale(0.98);
+}
+
+/* Ambient Cyber Grid Overlay */
+.bg-cyber-grid {
+    background-size: 50px 50px;
+    background-image: 
+        linear-gradient(to right, rgba(124, 58, 237, 0.08) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(124, 58, 237, 0.08) 1px, transparent 1px);
+}
+
+/* Animated Aurora Waves */
+@keyframes floatAurora {
+    0%, 100% { transform: translate(0px, 0px) scale(1); }
+    50% { transform: translate(30px, -25px) scale(1.1); }
+}
+
+.animate-aurora {
+    animation: floatAurora 12s ease-in-out infinite alternate;
+}
+
+/* Scroll Reveal Utility Classes */
+.reveal-element {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.reveal-element.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+}
+::-webkit-scrollbar-track {
+    background: #040308;
+}
+::-webkit-scrollbar-thumb {
+    background: #1E1738;
+    border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: #7C3AED;
+}
