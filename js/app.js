@@ -331,7 +331,20 @@ function App() {
             </div>
           </div>
 
-          <div className="md:col-span-5 relative animate-float">
+          <div className="md:col-span-5 relative animate-float space-y-4">
+            {/* Profile Image */}
+            <div className="relative group max-w-xs mx-auto">
+              <div className="absolute -inset-1 bg-gradient-to-r from-purple-600 to-indigo-600 rounded-2xl blur opacity-30"></div>
+              <div className="relative rounded-2xl overflow-hidden border border-purple-500/30">
+                <img
+                  src="images/mahee.jpeg"
+                  alt="Shahriar Ibne Alam Mahee"
+                  className="w-full h-auto object-cover rounded-2xl"
+                />
+              </div>
+            </div>
+
+            {/* Terminal */}
             <InteractiveTerminal soundEnabled={soundEnabled} />
           </div>
         </div>
