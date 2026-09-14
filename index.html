@@ -1533,47 +1533,6 @@
               </div>
             </section>
 
-            {/* PHOTOGRAPHY */}
-            {}
-            <section className="relative z-10 py-20 max-w-7xl mx-auto px-6 border-t border-purple-900/20 reveal-element">
-              <div className="space-y-8">
-                <div className="space-y-2">
-                  <div className="text-xs font-mono text-purple-400 uppercase tracking-widest">
-                    Personal Hobbies
-                  </div>
-                  <h2 className="text-3xl font-extrabold tracking-tight text-gradient">
-                    Beyond Code: Photography
-                  </h2>
-                  <p className="text-gray-400 text-sm">
-                    Capturing perspective, light, and geometry when taking a
-                    break from programming.
-                  </p>
-                </div>
-
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                  {PORTFOLIO_DATA.photography.map((item, idx) => (
-                    <TiltCard
-                      key={idx}
-                      className="p-4 space-y-3"
-                      soundEnabled={soundEnabled}
-                    >
-                      <div className="w-full h-32 bg-purple-950/40 rounded-xl flex items-center justify-center border border-purple-900/40 text-purple-400">
-                        <i data-lucide="camera" class="w-8 h-8 opacity-70"></i>
-                      </div>
-                      <div className="flex items-center justify-between">
-                        <span className="text-xs font-bold text-white">
-                          {item.title}
-                        </span>
-                        <span className="text-[10px] font-mono text-purple-300 bg-purple-950/70 px-2 py-0.5 rounded border border-purple-800/30">
-                          {item.tag}
-                        </span>
-                      </div>
-                    </TiltCard>
-                  ))}
-                </div>
-              </div>
-            </section>
-
             {/* CONTACT SECTION */}
             {}
             <section
