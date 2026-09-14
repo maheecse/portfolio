@@ -114,7 +114,7 @@ const PORTFOLIO_DATA = {
   projects: [
     {
       id: "01",
-      title: "Attendance & Academic Management System",
+      title: " Attendance-Tracking-System",
       description:
         "A robust C++ based software system for managing student course enrollments, attendance logs, and GPA tracking with persistent file handling.",
       technologies: ["C++", "OOP", "File Systems", "Data Structures"],
